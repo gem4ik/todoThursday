@@ -25,27 +25,27 @@ export const todolistAPI = {
             { title: string }>('todo-lists', {title})
     },
     deleteTodolists(todolistID: string) {
-        return instance.delete<TodoResponceType>(`todo-lists${todolistID}`)
+        return instance.delete<TodoResponceType>(`todo-lists/${todolistID}`)
     },
     putTodolists(todolistID: string, title: string) {
-        return instance.put<null, TodoResponceType, { title: string }>(`todo-lists${todolistID}`, {title})
+        return instance.put<null, TodoResponceType, { title: string }>(`todo-lists/${todolistID}`, {title})
     },
     putReorderTodo(todolistID: string, putAfterItemId: string) {
-        return instance.put<null, TodoResponceType, { putAfterItemId: string }>(`todo-lists${todolistID}/tasks`, {putAfterItemId})
+        return instance.put<null, TodoResponceType, { putAfterItemId: string }>(`todo-lists/${todolistID}/tasks`, {putAfterItemId})
     },
-    getTasks(todolistID: string,) {
-        return instance.get<TasksRequestType>(`todo-lists${todolistID}/tasks`)
+    getTasks(todolistID: string) {
+        return instance.get<TasksRequestType>(`todo-lists/${todolistID}/tasks`)
     },
     postTasks(todolistID: string, title: string) {
-        return instance.post<null, TodoResponceType, { title: string }>(`todo-lists${todolistID}/tasks`, {title})
+        return instance.post<null, TodoResponceType, { title: string }>(`todo-lists/${todolistID}/tasks`, {title})
     },
     putTask(todolistID: string, taskID: string) {
-        return instance.put<null, TasksUpdateResponseType, TasksPutRequestModelType>(`todo-lists${todolistID}/tasks${taskID}`)
+        return instance.put<null, TasksUpdateResponseType, TasksPutRequestModelType>(`todo-lists/${todolistID}/tasks/${taskID}`)
     },
     deleteTask(todolistID: string, taskID: string) {
-        return instance.delete<TodoResponceType>(`todo-lists${todolistID}/tasks${taskID}`)
+        return instance.delete<TodoResponceType>(`todo-lists/${todolistID}/tasks/${taskID}`)
     },
     reorderTasks(todolistID: string, taskID: string, putAfterItemId: string) {
-        return instance.put<null, TodoResponceType, { putAfterItemId: string }>(`todo-lists${todolistID}/tasks${taskID}/reorder`, {putAfterItemId})
+        return instance.put<null, TodoResponceType, { putAfterItemId: string }>(`todo-lists/${todolistID}/tasks/${taskID}/reorder`, {putAfterItemId})
     }
 }

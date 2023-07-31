@@ -1,18 +1,13 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from './App.module.css';
-import {getUserTC} from "./Data/Redux/Reducers/TodolistReducer";
-import {useAppDispatch} from "./Data/Redux/Store";
+import {Todolists} from "./Data/Components/Todolists/Todolists";
 
 function App() {
-  const dispatch = useAppDispatch()
 
-  useEffect(()=>{
-    dispatch(getUserTC())
-  }, [])
 
   return (
     <div className={s.AppWrapper}>
-
+    <Todolists />
     </div>
   );
 }
