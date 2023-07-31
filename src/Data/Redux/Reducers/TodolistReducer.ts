@@ -1,6 +1,7 @@
 import {TodoItemResponceType} from "../../API/APITypes";
 import {Dispatch} from "redux";
 import {todolistAPI} from "../../API/TodolistAPI";
+import {AppThunkType} from "../Store";
 
 export type TodoReducerActionType = ReturnType<typeof getUserAC>
 
@@ -20,8 +21,8 @@ export const getUserAC = (users: TodoItemResponceType[]) => {
         payload: {users}
     }as const
 }
-export const getUserTC = () => {
-    return (dispatch: Dispatch) => {
+export const getUserTC = (): AppThunkType => {
+    return (dispatch) => {
         todolistAPI.getTodolists()
             .then(res=>dispatch(getUserAC(res.data)))
     }
