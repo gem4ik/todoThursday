@@ -9,7 +9,7 @@ type TaskPropsType = {
 export const Task = (props: TaskPropsType) => {
     return (
         <div className={s.taskWrapper}>
-
+            {props.title}
         </div>
     );
 };

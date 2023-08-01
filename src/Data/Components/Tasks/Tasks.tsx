@@ -18,10 +18,12 @@ export const Tasks = (props: TasksPropsType) => {
         <div className={s.TasksWrapper}>
             {tasks[props.todolistID].map(t => {
                 return (
-                    <Task
-                        key={t.id}
-                        title={t.title}
-                        todolistId={props.todolistID}/>
+                   <div>
+                       <Task
+                           key={t.id}
+                           title={t.title}
+                           todolistId={props.todolistID}/>
+                   </div>
                 )
             })}
         </div>

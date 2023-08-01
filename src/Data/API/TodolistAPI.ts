@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {
     TasksPutRequestModelType,
     TasksRequestType,
@@ -40,7 +40,8 @@ export const todolistAPI = {
         return instance.post<null, TodoResponceType, { title: string }>(`todo-lists/${todolistID}/tasks`, {title})
     },
     putTask(todolistID: string, taskID: string) {
-        return instance.put<null, TasksUpdateResponseType, TasksPutRequestModelType>(`todo-lists/${todolistID}/tasks/${taskID}`)
+        //null, TasksUpdateResponseType, TasksPutRequestModelType убрать null или добавить axios responce
+        return instance.put<null, AxiosResponse<TasksUpdateResponseType>, TasksPutRequestModelType>(`todo-lists/${todolistID}/tasks/${taskID}`)
     },
     deleteTask(todolistID: string, taskID: string) {
         return instance.delete<TodoResponceType>(`todo-lists/${todolistID}/tasks/${taskID}`)
