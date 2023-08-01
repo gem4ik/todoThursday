@@ -4,6 +4,7 @@ import {useSelector} from "react-redux";
 import {TodoItemResponceType} from "../../API/APITypes";
 import {getTodolistTC} from "../../Redux/Reducers/TodolistReducer";
 import Paper from "@mui/material/Paper";
+import s from './Todolists.module.css'
 
 import Grid from "@mui/material/Grid";
 import {Todolist} from "../Todolist/Todolist";
@@ -16,22 +17,21 @@ export const Todolists = () => {
         dispatch(getTodolistTC())
     }, [])
     return (
-        <div>
+        <div className={s.appWrapper}>
            <Grid container >
                {todolists.map((tl) => {
-                   return <div>
-                       <Grid item >
+                   return <Grid item key={tl.id}
+                                style={{padding:20}}>
                            <Paper
-                               style={{padding: '10px'}}
+                               style={{minWidth: '200px'}}
                                variant='outlined'
                                elevation={9}>
-                               {tl.title}
                                <Todolist
+                                   todolistTitle={tl.title}
                                    key={tl.id}
                                    todolistId={tl.id}/>
                            </Paper>
                        </Grid>
-                   </div>
                })}
            </Grid>
         </div>

@@ -1,0 +1,9 @@
+.task__wrapper{
+    display: flex;
+    align-items: center;
+    width: auto;
+    justify-content: space-between;
+}
+.task__title {
+    width: 100%;
+}

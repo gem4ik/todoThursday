@@ -1,0 +1,10 @@
+.TodolistWrapper {
+    display: flex;
+    flex-direction: column;
+}
+.Todolist__title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #1975d0;
+}

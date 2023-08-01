@@ -4,12 +4,16 @@ import {Tasks} from "../Tasks/Tasks";
 
 export type TodolistPropsType = {
     todolistId: string
+    todolistTitle: string
 }
 
 export const Todolist = (props: TodolistPropsType) => {
     return (
         <div className={s.TodolistWrapper}>
-                <Tasks  todolistID={props.todolistId}/>
+            <div className={s.Todolist__title}>
+                {props.todolistTitle}
+            </div>
+            <Tasks todolistID={props.todolistId}/>
         </div>
     );
 };
