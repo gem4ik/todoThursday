@@ -1,10 +1,18 @@
 .TodolistWrapper {
     display: flex;
     flex-direction: column;
+    align-items: center;
+
 }
 .Todolist__title {
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #1975d0;
+    width: 100%;
+}
+.Todolist__filerButton {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }

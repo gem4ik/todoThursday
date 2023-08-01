@@ -23,7 +23,8 @@ export const Todolists = () => {
                    return <Grid item key={tl.id}
                                 style={{padding:20}}>
                            <Paper
-                               style={{minWidth: '200px'}}
+                               style={{minWidth: '200px',
+                               borderRadius: '10px'}}
                                variant='outlined'
                                elevation={9}>
                                <Todolist
