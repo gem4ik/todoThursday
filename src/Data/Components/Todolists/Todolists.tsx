@@ -5,7 +5,6 @@ import {TodoItemResponceType} from "../../API/APITypes";
 import {getTodolistTC} from "../../Redux/Reducers/TodolistReducer";
 import Paper from "@mui/material/Paper";
 import s from './Todolists.module.css'
-
 import Grid from "@mui/material/Grid";
 import {Todolist} from "../Todolist/Todolist";
 
@@ -17,8 +16,9 @@ export const Todolists = () => {
         dispatch(getTodolistTC())
     }, [])
     return (
-        <div className={s.appWrapper}>
-           <Grid container >
+        <div >
+           <Grid container className={s.app__wrapper} >
+
                {todolists.map((tl) => {
                    return <Grid item key={tl.id}
                                 style={{padding:20}}>

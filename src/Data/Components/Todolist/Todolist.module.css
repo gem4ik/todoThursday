@@ -2,13 +2,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    min-width: 300px;
+    margin: 10px;
 }
 .Todolist__title {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #1975d0;
     width: 100%;
 }
 .Todolist__filerButton {

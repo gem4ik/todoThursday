@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.App__AddItemForm {
+  padding: 20px 80px;
+}
