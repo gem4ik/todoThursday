@@ -15,5 +15,6 @@ export type RootStateType = ReturnType<typeof RootState>
 export type AppActionsTypes = TodoReducerActionType | TasksReducerActionType
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, RootStateType, unknown, AppActionsTypes>
 
-type AppDispatchType = ThunkDispatch<RootStateType, unknown, AnyAction>
+type AppDispatchType = ThunkDispatch<RootStateType, unknown, AppActionsTypes>
+// type AppDispatchType =ReturnType<typeof store>['dispatch']
 export const useAppDispatch = useDispatch<AppDispatchType>

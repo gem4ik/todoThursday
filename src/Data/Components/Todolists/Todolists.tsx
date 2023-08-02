@@ -25,8 +25,7 @@ export const Todolists = () => {
                            <Paper
                                style={{minWidth: '200px',
                                borderRadius: '10px'}}
-                               variant='outlined'
-                               elevation={9}>
+                               variant='outlined'>
                                <Todolist
                                    todolistTitle={tl.title}
                                    key={tl.id}

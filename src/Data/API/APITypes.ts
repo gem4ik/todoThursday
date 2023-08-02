@@ -4,6 +4,8 @@ export type TodoResponceType<D={}> = {
     messages: string[]
     fieldsErrors?: string[]
 }
+export type FilterValueType = 'all' | 'active' | 'complete'
+export type TodoInitialStateType = TodoItemResponceType & FilterValueType
 export type TodoItemResponceType = {
     id: string
     title: string

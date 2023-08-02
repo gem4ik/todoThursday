@@ -4,6 +4,9 @@ import {Tasks} from "../Tasks/Tasks";
 import {Button} from "@mui/material";
 import {AddItemForm} from "../AddItemForm/AddItemForm";
 import {EditableSpan} from "../EditableSpan/EditableSpan";
+import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
+import {useAppDispatch} from "../../Redux/Store";
+import {changeTodolistTitleTC, deleteTodolistTC} from "../../Redux/Reducers/TodolistReducer";
 
 export type TodolistPropsType = {
     todolistId: string
@@ -11,16 +14,26 @@ export type TodolistPropsType = {
 }
 
 export const Todolist = (props: TodolistPropsType) => {
+    const dispatch = useAppDispatch()
+    const  DeleteTodoHandler = () => {
+        dispatch(deleteTodolistTC(props.todolistId))
+    }
+    const changeTodoTitleHandler = (title: string) => {
+        dispatch(changeTodolistTitleTC(props.todolistId, title))
+    }
     return (
         <div className={s.TodolistWrapper}>
             <div className={s.Todolist__title}>
                 <EditableSpan
-                    onChange={() => {
-                    }}
+                    onChange={changeTodoTitleHandler}
                     value={props.todolistTitle}/>
+                <DeleteOutlinedIcon
+                    style={{cursor: "pointer"}}
+                    onClick={DeleteTodoHandler}
+                    className={s.Todolist__deleteIcon}/>
             </div>
             <div className={s.Todolist__AddItemForm}>
-                <AddItemForm/>
+                <AddItemForm addItem={()=>{}}/>
             </div>
             <Tasks todolistID={props.todolistId}/>
             <div className={s.Todolist__filerButton}>
