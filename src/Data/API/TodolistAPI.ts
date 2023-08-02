@@ -1,10 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 import {
-    TasksPutRequestModelType,
     TasksRequestType,
+    TasksType,
     TasksUpdateResponseType,
     TodoItemResponceType,
-    TodoResponceType
+    TodoResponceType,
+    UpdateDomainTaskModelType
 } from "./APITypes";
 
 const instance = axios.create({
@@ -21,7 +22,7 @@ export const todolistAPI = {
         return instance.get<TodoItemResponceType[]>('todo-lists')
     },
     postTodolists(title: string) { //<100
-        return instance.post<null, TodoResponceType<{ item: TodoItemResponceType }>,
+        return instance.post<null, AxiosResponse<TodoResponceType<{ item: TodoItemResponceType }>>,
             { title: string }>('todo-lists', {title})
     },
     deleteTodolists(todolistID: string) {
@@ -37,11 +38,11 @@ export const todolistAPI = {
         return instance.get<TasksRequestType>(`todo-lists/${todolistID}/tasks`)
     },
     postTasks(todolistID: string, title: string) {
-        return instance.post<null, TodoResponceType, { title: string }>(`todo-lists/${todolistID}/tasks`, {title})
+        return instance.post<null,AxiosResponse<TodoResponceType<{item: TasksType}>>, { title: string }>(`todo-lists/${todolistID}/tasks`, {title})
     },
-    putTask(todolistID: string, taskID: string) {
+    putTask(todolistID: string, taskID:string, domainModel: UpdateDomainTaskModelType) {
         //null, TasksUpdateResponseType, TasksPutRequestModelType убрать null или добавить axios responce
-        return instance.put<null, AxiosResponse<TasksUpdateResponseType>, TasksPutRequestModelType>(`todo-lists/${todolistID}/tasks/${taskID}`)
+        return instance.put<null, AxiosResponse<TasksUpdateResponseType>, UpdateDomainTaskModelType>(`todo-lists/${todolistID}/tasks/${taskID}`, domainModel)
     },
     deleteTask(todolistID: string, taskID: string) {
         return instance.delete<TodoResponceType>(`todo-lists/${todolistID}/tasks/${taskID}`)

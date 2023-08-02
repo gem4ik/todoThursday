@@ -7,6 +7,7 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import DeleteOutlinedIcon from "@mui/icons-material/DeleteOutlined";
 import {useAppDispatch} from "../../Redux/Store";
 import {changeTodolistTitleTC, deleteTodolistTC} from "../../Redux/Reducers/TodolistReducer";
+import {createTaskTC} from "../../Redux/Reducers/TasksReducer";
 
 export type TodolistPropsType = {
     todolistId: string
@@ -20,6 +21,9 @@ export const Todolist = (props: TodolistPropsType) => {
     }
     const changeTodoTitleHandler = (title: string) => {
         dispatch(changeTodolistTitleTC(props.todolistId, title))
+    }
+    const onChangeHandler = (newValue: string) => {
+        dispatch(createTaskTC(props.todolistId, newValue))
     }
     return (
         <div className={s.TodolistWrapper}>
@@ -35,7 +39,7 @@ export const Todolist = (props: TodolistPropsType) => {
                     className={s.Todolist__deleteIcon}/>
             </div>
             <div className={s.Todolist__AddItemForm}>
-                <AddItemForm addItem={()=>{}}/>
+                <AddItemForm addItem={onChangeHandler}/>
             </div>
             <Tasks todolistID={props.todolistId}/>
             <div className={s.Todolist__filerButton}>

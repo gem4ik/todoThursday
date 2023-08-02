@@ -21,6 +21,8 @@ export const Tasks = (props: TasksPropsType) => {
                     <Task
                         key={t.id}
                         title={t.title}
+                        taskId={t.id}
+                        checked={t.status}
                         todolistId={props.todolistID}/>
                 )
             })}

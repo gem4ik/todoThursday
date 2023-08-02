@@ -17,7 +17,7 @@ export const TodolistReducer = (state: TodoInitialStateType[] = [], action: Todo
             })
         }
         case "ADD-TODOLIST": {
-            return [...state, {...action.payload.todolist, filter: 'all'}]
+            return [{...action.payload.todolist, filter: 'all'}, ...state]
         }
         case "DELETE-TODOLIST": {
             return state.filter(el => el.id !== action.payload.todolistId)
@@ -43,6 +43,7 @@ export const getTodolistTC = (): AppThunkType => {
     }
 }
 export const addTodolistAC = (todolist: TodoItemResponceType) => {
+
     return {
         type: 'ADD-TODOLIST',
         payload: {todolist}
@@ -51,8 +52,9 @@ export const addTodolistAC = (todolist: TodoItemResponceType) => {
 export const addTodolistTC = (title: string): AppThunkType => {
     return (dispatch) => {
         todolistAPI.postTodolists(title)
-            .then(res => dispatch(addTodolistAC(res.data.item)))
-    }
+            .then(res => {
+                dispatch(addTodolistAC(res.data.data.item))
+            })    }
 }
 export const deleteTodolistAC = (todolistId: string) => {
     return {
@@ -63,7 +65,7 @@ export const deleteTodolistAC = (todolistId: string) => {
 export const deleteTodolistTC = (todolistId: string): AppThunkType => {
     return (dispatch) => {
         todolistAPI.deleteTodolists(todolistId)
-            .then(res => dispatch(deleteTodolistAC(todolistId)))
+            .then(() => dispatch(deleteTodolistAC(todolistId)))
     }
 }
 export const changeTodolistTitleAC = (todolistId: string, title: string) => {
@@ -76,6 +78,6 @@ export const changeTodolistTitleAC = (todolistId: string, title: string) => {
 export const changeTodolistTitleTC = (todolistId: string, title: string): AppThunkType => {
     return (dispatch) => {
         todolistAPI.putTodolists(todolistId, title)
-            .then(res => dispatch(changeTodolistTitleAC(todolistId, title)))
+            .then(() => dispatch(changeTodolistTitleAC(todolistId, title)))
     }
 }
