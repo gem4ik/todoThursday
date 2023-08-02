@@ -24,9 +24,11 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div className={s.TodolistWrapper}>
             <div className={s.Todolist__title}>
-                <EditableSpan
-                    onChange={changeTodoTitleHandler}
-                    value={props.todolistTitle}/>
+                <h2>
+                    <EditableSpan
+                        onChange={changeTodoTitleHandler}
+                        value={props.todolistTitle}/>
+                </h2>
                 <DeleteOutlinedIcon
                     style={{cursor: "pointer"}}
                     onClick={DeleteTodoHandler}

@@ -9,7 +9,7 @@ export type TodoReducerActionType =
     | ReturnType<typeof changeTodolistTitleAC>
 
 
-export const TodolistReducer = (state: TodoInitialStateType[] = [], action: TodoReducerActionType) => {
+export const TodolistReducer = (state: TodoInitialStateType[] = [], action: TodoReducerActionType): TodoInitialStateType[] => {
     switch (action.type) {
         case 'GET-TODOLISTS' : {
             return action.payload.todolists.map(tl => {
@@ -23,7 +23,6 @@ export const TodolistReducer = (state: TodoInitialStateType[] = [], action: Todo
             return state.filter(el => el.id !== action.payload.todolistId)
         }
         case "CHANGE-TITLE": {
-            // @ts-ignore
             return state.map(tl =>tl.id === action.payload.todolistId ? {...tl, title: action.payload.title} : tl)
         }
         default:
