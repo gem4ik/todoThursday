@@ -1,7 +1,9 @@
-import {addTodolistAC, deleteTodolistAC, getTodolistAC} from "./TodolistReducer";
+import {addTodolistAC, changeEntityStatusAC, deleteTodolistAC, getTodolistAC} from "./TodolistReducer";
 import {AppThunkType, RootStateType} from "../Store";
 import {todolistAPI} from "../../API/TodolistAPI";
 import {TasksPutRequestModelType, TasksType, UpdateDomainTaskModelType} from "../../API/APITypes";
+import {setStatusAC} from "./AppReducer";
+import {handleServerAppError, handleServerNetworkError} from "../../utils/Utils";
 
 export type TasksReducerActionType = ReturnType<typeof getTasksAC>
     | ReturnType<typeof getTodolistAC>
@@ -65,8 +67,13 @@ export const getTasksAC = (tasks: TasksType[], TodolistId: string) => {
 }
 export const getTasksTC = (TodolistId: string): AppThunkType => {
     return (dispatch) => {
+        dispatch(setStatusAC('loading'))
         todolistAPI.getTasks(TodolistId)
-            .then(res => dispatch(getTasksAC(res.data.items, TodolistId)))
+            .then(res => {
+                dispatch(getTasksAC(res.data.items, TodolistId))
+                dispatch(setStatusAC('idle'))
+            })
+            .catch((e) => handleServerNetworkError(e, dispatch))
     }
 }
 export const createTaskAC = (TodolistId: string, task: TasksType) => {
@@ -77,8 +84,17 @@ export const createTaskAC = (TodolistId: string, task: TasksType) => {
 }
 export const createTaskTC = (TodolistId: string, title: string): AppThunkType => {
     return (dispatch) => {
+        dispatch(setStatusAC('loading'))
         todolistAPI.postTasks(TodolistId, title)
-            .then(res => dispatch(createTaskAC(TodolistId, res.data.data.item)))
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(createTaskAC(TodolistId, res.data.data.item))
+                    dispatch(setStatusAC('idle'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            })
+            .catch((e) => handleServerNetworkError(e, dispatch))
     }
 }
 export const changeTaskAC = (todolistId: string, taskId: string, model: UpdateDomainTaskModelType) => {
@@ -87,9 +103,9 @@ export const changeTaskAC = (todolistId: string, taskId: string, model: UpdateDo
         payload: {todolistId, taskId, model}
     } as const
 }
-
 export const changeTaskTC = (todolistId: string, taskId: string, domainModel: UpdateDomainTaskModelType): AppThunkType => {
     return (dispatch, getState: () => RootStateType) => {
+        dispatch(setStatusAC('loading'))
         const state = getState()
         const task = state.Tasks[todolistId].find(task => task.id === taskId)
         if (!task) {
@@ -105,7 +121,15 @@ export const changeTaskTC = (todolistId: string, taskId: string, domainModel: Up
             ...domainModel
         }
         todolistAPI.putTask(todolistId, taskId, model)
-            .then(() => dispatch(changeTaskAC(todolistId, taskId, domainModel)))
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(changeTaskAC(todolistId, taskId, domainModel))
+                    dispatch(setStatusAC('idle'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            })
+            .catch((e) => handleServerNetworkError(e, dispatch))
     }
 }
 export const deleteTaskAC = (todolistId: string, taskId: string) => {
@@ -116,7 +140,17 @@ export const deleteTaskAC = (todolistId: string, taskId: string) => {
 }
 export const deleteTaskTC = (todolistId: string, taskId: string): AppThunkType => {
     return (dispatch) => {
+        dispatch(setStatusAC('loading'))
+        dispatch(changeEntityStatusAC(todolistId, 'loading'))
         todolistAPI.deleteTask(todolistId, taskId)
-            .then(() => dispatch(deleteTaskAC(todolistId, taskId)))
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(deleteTaskAC(todolistId, taskId))
+                    dispatch(setStatusAC('idle'))
+                } else {
+                    handleServerAppError(res.data, dispatch)
+                }
+            })
+            .catch((e) => handleServerNetworkError(e, dispatch))
     }
 }

@@ -6,6 +6,7 @@ type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
     style?: any
+    disabled?: boolean
 }
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
@@ -26,6 +27,6 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     }
 
     return editMode
-        ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
+        ? <TextField disabled={props.disabled} value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
         : <span style={props.style} onDoubleClick={activateEditMode} className={s.Editable__span}>{props.value}</span>
 });

@@ -6,12 +6,14 @@ import {EditableSpan} from "../EditableSpan/EditableSpan";
 import {useAppDispatch} from "../../Redux/Store";
 import {changeTaskTC, deleteTaskTC} from "../../Redux/Reducers/TasksReducer";
 import {TaskStatuses} from "../../API/APITypes";
+import {RequestStatusType} from "../../Redux/Reducers/AppReducer";
 
 type TaskPropsType = {
     title: string
     todolistId: string
     taskId: string
     checked: number
+    entityStatus: RequestStatusType
 }
 
 export const Task = (props: TaskPropsType) => {
@@ -32,7 +34,10 @@ export const Task = (props: TaskPropsType) => {
     return (
         <div className={s.task__wrapper}>
             <Checkbox checked={checkedStatus} onChange={onStatusChangeHandler}/>
-            <EditableSpan value={props.title} onChange={onTitleChangeHandler}/>
+            <EditableSpan
+                disabled={props.entityStatus === 'loading'}
+                value={props.title}
+                onChange={onTitleChangeHandler}/>
             <DeleteOutlinedIcon
                 onClick={deleteTaskHandler}
                 style={{cursor: "pointer"}}/>

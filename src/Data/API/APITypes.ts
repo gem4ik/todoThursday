@@ -1,3 +1,5 @@
+import {RequestStatusType} from "../Redux/Reducers/AppReducer";
+
 export type TodoResponceType<D={}> = {
     data: D
     resultCode: number
@@ -5,7 +7,7 @@ export type TodoResponceType<D={}> = {
     fieldsErrors?: string[]
 }
 export type FilterValueType = 'all' | 'active' | 'complete'
-export type TodoInitialStateType = TodoItemResponceType & {filter: FilterValueType}
+export type TodoInitialStateType = TodoItemResponceType & {filter: FilterValueType, entityStatus: RequestStatusType}
 export type TodoItemResponceType = {
     id: string
     title: string
