@@ -7,6 +7,7 @@ import {
     TodoResponceType,
     UpdateDomainTaskModelType
 } from "./APITypes";
+import {FormikErrorType} from "../Components/Login/Login";
 
 const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -49,5 +50,21 @@ export const todolistAPI = {
     },
     reorderTasks(todolistID: string, taskID: string, putAfterItemId: string) {
         return instance.put<null, TodoResponceType, { putAfterItemId: string }>(`todo-lists/${todolistID}/tasks/${taskID}/reorder`, {putAfterItemId})
+    }
+}
+
+export const authAPI = {
+    login(data: FormikErrorType) {
+        return instance.post<null, AxiosResponse<TodoResponceType<{ userId: number }>>, FormikErrorType>('auth/login', data)
+    },
+    me() {
+        return instance.get<TodoResponceType<{
+            id: number,
+            email: string,
+            login: string
+        }>>('/auth/me')
+    },
+    logout() {
+        return instance.delete<TodoResponceType<{data: {}}>>('/auth/login')
     }
 }

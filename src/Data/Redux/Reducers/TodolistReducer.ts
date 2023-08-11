@@ -73,7 +73,10 @@ export const addTodolistTC = (title: string): AppThunkType => {
                     handleServerAppError(res.data, dispatch)
                 }
             })
-            .catch((e) => handleServerNetworkError(e, dispatch))
+            .catch((e) => {
+                debugger
+                handleServerNetworkError(e, dispatch)
+            })
     }
 }
 export const deleteTodolistAC = (todolistId: string) => {

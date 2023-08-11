@@ -17,7 +17,7 @@ export type TasksStateType = {
     [key: string]: TasksType[]
 }
 
-export const TasksReducer = (state: TasksStateType = {}, action: TasksReducerActionType) => {
+export const TasksReducer = (state: TasksStateType = { }, action: TasksReducerActionType) => {
     switch (action.type) {
         case 'GET-TASKS' : {
             return {...state, [action.payload.TodolistId]: [...action.payload.tasks]}

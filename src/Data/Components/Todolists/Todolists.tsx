@@ -11,9 +11,11 @@ import {Todolist} from "../Todolist/Todolist";
 export const Todolists = () => {
     const dispatch = useAppDispatch()
     const todolists = useSelector<RootStateType, TodoInitialStateType[]>(state => state.Todolists)
-
+    const isLoggedIn = useSelector<RootStateType, boolean>( state => state.Auth.isLoggedIn)
     useEffect(() => {
-        dispatch(getTodolistTC())
+        if(isLoggedIn) {
+            dispatch(getTodolistTC())
+        }
     }, [])
     return (
         <div >
