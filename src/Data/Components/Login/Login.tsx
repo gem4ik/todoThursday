@@ -49,11 +49,10 @@ export const Login = () => {
         },
     })
 
-    useEffect(()=>{
-        if(isLoggedIn) {
-            navigate('/')
-        }
-    },[isLoggedIn])
+    if (isLoggedIn) {
+        navigate('/')
+    }
+
     return <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
             <FormControl>

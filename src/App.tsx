@@ -12,33 +12,30 @@ import {useSelector} from "react-redux";
 import {RequestStatusType} from "./Data/Redux/Reducers/AppReducer";
 import {Login} from "./Data/Components/Login/Login";
 import {Navigate, Route, Routes, useNavigate} from "react-router-dom";
-import {isLoggedInTC} from "./Data/Redux/Reducers/AuthReducer";
+import {isLoggedInTC, setIsInitializedAC} from "./Data/Redux/Reducers/AuthReducer";
 
 function App() {
-
     const dispatch = useAppDispatch()
     const isLoggedIn = useSelector<RootStateType,boolean>(state => state.Auth.isLoggedIn)
     const isInitialized = useSelector<RootStateType,boolean>(state => state.Auth.isInitialized)
 
-    useEffect(()=> {
-        dispatch(isLoggedInTC())
-    },[])
     const navigate = useNavigate()
     const status = useSelector<RootStateType, RequestStatusType>(state => state.App.status)
     const addItem = (title: string) => {
         dispatch(addTodolistTC(title))
     }
     useEffect(()=> {
-        if(!isLoggedIn) {
-            navigate('/login')
-        }
-    },[isLoggedIn])
+        dispatch(isLoggedInTC())
+    },[])
     if (!isInitialized) {
+        debugger
+        navigate('/login')
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
         </div>
     }
+
 
     return (
         <div className={s.App__wrapper}>
